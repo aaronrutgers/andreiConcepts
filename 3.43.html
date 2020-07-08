@@ -12,14 +12,29 @@
     crossorigin="anonymous"
   ></script>
   <script src="./script.js"></script>
+
+  <!-- 变量jQuery是导入了jquery库所提供的,于是OMG参数就可以使用这个类似于$的变量 -->
   <script>
-    var script1 = (function () {
+    var script1 = (function (OMG) {
+      OMG("h1").click(function () {
+        OMG("h1").hide();
+      });
+      return {};
+    })(jQuery);
+  </script>
+
+  <!-- script2则用本地符号$覆盖了全局$符号,这是一种浪费 -->
+  <script>
+    var script2 = (function ($) {
       $("h1").click(function () {
         $("h1").hide();
       });
-      return {};
-    })();
+      return {
+        $: "hi",
+      };
+    })(jQuery);
   </script>
+
   <script>
     function a() {
       return "hahaha";
